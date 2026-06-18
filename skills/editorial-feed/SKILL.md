@@ -69,6 +69,7 @@ curl -s "https://www.coreprose.com/api/public/kb-feed?niche=ia&q=$(printf %s 'mi
   "count": 3,
   "results": [
     {
+      "type": "insight",
       "title": "Mistral releases Vibe model",
       "summary": "Mistral announced a new...",
       "source": "Reuters",
@@ -79,6 +80,16 @@ curl -s "https://www.coreprose.com/api/public/kb-feed?niche=ia&q=$(printf %s 'mi
   ]
 }
 ```
+
+## Response types
+
+Each result has a `type` field:
+
+- **`insight`** — validated editorial KB knowledge from Elasticsearch (papers, products, incidents, historicized). Cite the `source` and `sourceUrl` directly.
+- **`trend`** — emerging news cluster from the trend scanner (< 30 days). Source field is `"CoreProse Trend Radar"` (or similar), `sourceUrl` points to the trend page where the cluster of original sources is aggregated. **Trends are boosted +0.1 in score when < 7 days old** to surface recency.
+
+A persona should prefer insights for foundational claims and trends for current-events context.
+
 
 ## How to use the response in the persona reply
 
